@@ -1,0 +1,32 @@
+# Головна назва нашого автоматичного пайплайну
+name: Java CI with Maven
+
+# 3. Налаштовуємо тригер: пайплайн спрацьовує автоматично при push у гілку main
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    # Вказуємо GitHub Actions запустити чисту віртуальну машину на базі Ubuntu Linux
+    runs-on: ubuntu-latest
+
+    steps:
+    # 4. Крок для checkout коду (копіюємо файли проєкту з твого репозиторію на віртуальну машину)
+    - name: Checkout source code
+      uses: actions/checkout@v4
+
+    # 4. Крок для налаштування Java 17
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        # 4. Автоматичне нативне кешування залежностей Maven, щоб тести запускалися швидше
+        cache: maven
+
+    # 5. Крок для запуску твоїх інтеграційних тестів контролерів та сервісів
+    - name: Run Integration Tests with Maven
+      run: mvn test

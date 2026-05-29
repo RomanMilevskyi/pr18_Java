@@ -1,0 +1,16 @@
+com\example\pr13\config\JwtFilter.class
+com\example\pr13\entity\Category.class
+com\example\pr13\entity\Book.class
+com\example\pr13\repository\BookRepository.class
+com\example\pr13\repository\UserRepository.class
+com\example\pr13\service\BookServiceImpl.class
+com\example\pr13\config\JwtService.class
+com\example\pr13\controller\AuthController.class
+com\example\pr13\entity\User.class
+com\example\pr13\config\SecurityConfig.class
+com\example\pr13\controller\BookController.class
+com\example\pr13\service\BookService.class
+com\example\pr13\repository\CategoryRepository.class
+com\example\pr13\dto\CategoryDTO.class
+com\example\pr13\dto\BookDTO.class
+com\example\pr13\Pr13Application.class

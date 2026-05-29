@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # 2. Сервіс для бази даних PostgreSQL (збережено твої оригінальні дані)
+  db:
+    image: postgres:15
+    container_name: postgres_db_pr13
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data_pr13:/var/lib/postgresql/data
+
+  # 2. Новий сервіс для твого Spring Boot додатку
+  app:
+    # Вказуємо Docker збирати образ з нашого Dockerfile в поточній папці
+    build: .
+    container_name: spring_app_pr13
+    # 3. Налаштовуємо залежність: додаток чекає на успішний запуск бази даних
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    # 4. Налаштовуємо змінні середовища для підключення додатку до БД всередині Docker-мережі
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+volumes:
+  postgres_data_pr13:
